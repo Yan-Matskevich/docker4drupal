@@ -68,12 +68,12 @@ services:
 
   nginx:
 # wodby/drupal-nginx:[DRUPAL_VERSION]-[NGINX_VERSION]-[STABILITY_TAG].
-    image: wodby/drupal-nginx:8-1.13-3.0.2
-#    image: wodby/drupal-nginx:7-1.13-3.0.2
-#    image: wodby/drupal-nginx:6-1.13-3.0.2
-#    image: wodby/drupal-nginx:8-1.12-3.0.2
-#    image: wodby/drupal-nginx:7-1.12-3.0.2
-#    image: wodby/drupal-nginx:6-1.12-3.0.2
+#    image: wodby/drupal-nginx:8-1.13-2.4.2
+    image: wodby/drupal-nginx:7-1.13-2.4.2
+#    image: wodby/drupal-nginx:6-1.13-2.4.2
+#    image: wodby/drupal-nginx:8-1.12-2.4.2
+#    image: wodby/drupal-nginx:7-1.12-2.4.2
+#    image: wodby/drupal-nginx:6-1.12-2.4.2
     depends_on:
       - php
     environment:
@@ -81,16 +81,48 @@ services:
       NGINX_ERROR_LOG_LEVEL: debug
       NGINX_BACKEND_HOST: php
       NGINX_SERVER_ROOT: /var/www/html/web
-#      NGINX_DRUPAL_FILE_PROXY_URL: http://example.com
+      NGINX_SERVER_NAME:
+        local.tvecms.usanetwork.nbcuni.com
+        local.tvecms.usa.nbcuni.com
+        local.tvecms.bravo.nbcuni.com
+        local.tvecms.chiller.nbcuni.com
+        local.tvecms.cxbrand.nbcuni.com
+        local.tvecms.eonline.nbcuni.com
+        local.tvecms.seeso.nbcuni.com
+        local.tvecms.sprout.nbcuni.com
+        local.tvecms.syfy.nbcuni.com
+        local.tvecms.telemundo.nbcuni.com
+        local.tvecms.oxygen.nbcuni.com
+        local.tvecms.nbcuniverso.nbcuni.com
+        local.tvecms.cnbc.nbcuni.com
+        local.tvecms.msnbc.nbcuni.com
+        local.tvecms.esquire.nbcuni.com
+        local.tvecms.universalkids.nbcuni.com
     volumes:
-      - codebase:/var/www/html
+      - ./:/var/www/html
 # Options for macOS users (https://docker4drupal.readthedocs.io/en/latest/macos)
 #      - codebase:/var/www/html:cached # User-guided caching
 #      - docker-sync:/var/www/html # Docker-sync
     labels:
       - 'traefik.backend=nginx'
       - 'traefik.port=80'
-      - 'traefik.frontend.rule=Host:drupal.docker.localhost'
+      - 'traefik.frontend.rule=Host:
+          local.tvecms.usanetwork.nbcuni.com,
+          local.tvecms.usa.nbcuni.com,
+          local.tvecms.bravo.nbcuni.com,
+          local.tvecms.chiller.nbcuni.com,
+          local.tvecms.cxbrand.nbcuni.com,
+          local.tvecms.eonline.nbcuni.com,
+          local.tvecms.seeso.nbcuni.com,
+          local.tvecms.sprout.nbcuni.com,
+          local.tvecms.syfy.nbcuni.com,
+          local.tvecms.telemundo.nbcuni.com,
+          local.tvecms.oxygen.nbcuni.com,
+          local.tvecms.nbcuniverso.nbcuni.com,
+          local.tvecms.cnbc.nbcuni.com,
+          local.tvecms.msnbc.nbcuni.com,
+          local.tvecms.esquire.nbcuni.com,
+          local.tvecms.universalkids.nbcuni.com'
 
 #  apache:
 #    image: wodby/php-apache:2.4-2.0.2
