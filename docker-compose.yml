@@ -52,15 +52,15 @@ services:
       DB_PASSWORD: password
       DB_NAME: drupal
       DB_DRIVER: mysql
-#      PHP_XDEBUG: 1
-#      PHP_XDEBUG_DEFAULT_ENABLE: 1
+      PHP_XDEBUG: 1
+      PHP_XDEBUG_DEFAULT_ENABLE: 1
 #      PHP_XDEBUG_REMOTE_CONNECT_BACK: 0
 #      PHP_XDEBUG_REMOTE_HOST: "10.254.254.254"
 #      PHP_XDEBUG_PROFILER_OUTPUT_DIR: /mnt/files/xdebug/profiler
 #      PHP_XDEBUG_TRACE_OUTPUT_DIR: /mnt/files/xdebug/traces
 #      PHP_BLACKFIRE: 1
     volumes:
-      - ./docroot:/var/www/html
+      - ./:/var/www/html
 ## Options for macOS users (https://docker4drupal.readthedocs.io/en/latest/macos)
 #      - codebase:/var/www/html:cached # User-guided caching
 #      - docker-sync:/var/www/html # Docker-sync
@@ -81,7 +81,7 @@ services:
       NGINX_STATIC_CONTENT_OPEN_FILE_CACHE: "off"
       NGINX_ERROR_LOG_LEVEL: debug
       NGINX_BACKEND_HOST: php
-      NGINX_SERVER_ROOT: /var/www/html/web
+      NGINX_SERVER_ROOT: /var/www/html/docroot
       NGINX_SERVER_NAME:
         local.tvecms.usanetwork.nbcuni.com
         local.tvecms.usa.nbcuni.com
@@ -100,7 +100,7 @@ services:
         local.tvecms.esquire.nbcuni.com
         local.tvecms.universalkids.nbcuni.com
     volumes:
-      - ./docroot:/var/www/html
+      - ./:/var/www/html
 # Options for macOS users (https://docker4drupal.readthedocs.io/en/latest/macos)
 #      - codebase:/var/www/html:cached # User-guided caching
 #      - docker-sync:/var/www/html # Docker-sync
@@ -124,6 +124,38 @@ services:
           local.tvecms.msnbc.nbcuni.com,
           local.tvecms.esquire.nbcuni.com,
           local.tvecms.universalkids.nbcuni.com'
+
+  portainer:
+    image: portainer/portainer
+    command: --no-auth -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - 'traefik.backend=portainer'
+      - 'traefik.port=9000'
+      - 'traefik.frontend.rule=Host:portainer.cms.docker.localhost'
+
+  traefik:
+    image: traefik
+    command: -c /dev/null --web --docker --logLevel=INFO
+    ports:
+      - '8000:80'
+#      - '8080:8080' # Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: password
+      PHP_UPLOAD_MAX_FILESIZE: 1G
+      PHP_MAX_INPUT_VARS: 1G
+    labels:
+      - 'traefik.backend=pma'
+      - 'traefik.port=80'
+      - 'traefik.frontend.rule=Host:pma.cms.docker.localhost'
 
 #  apache:
 #    image: wodby/php-apache:2.4-2.0.2
@@ -168,19 +200,6 @@ services:
 #      - 'traefik.backend=adminer'
 #      - 'traefik.port=9000'
 #      - 'traefik.frontend.rule=Host:adminer.drupal.docker.localhost'
-
-  pma:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mariadb
-      PMA_USER: root
-      PMA_PASSWORD: password
-      PHP_UPLOAD_MAX_FILESIZE: 1G
-      PHP_MAX_INPUT_VARS: 1G
-    labels:
-      - 'traefik.backend=pma'
-      - 'traefik.port=80'
-      - 'traefik.frontend.rule=Host:pma.cms.docker.localhost'
 
 #  solr:
 ## wodby/drupal-solr:[DRUPAL_VERSION]-[SOLR_VERSION]-[STABILITY_TAG].
@@ -262,25 +281,6 @@ services:
 #      - 'traefik.frontend.rule=Host:webgrind.drupal.docker.localhost'
 #    volumes:
 #      - files:/mnt/files
-
-  portainer:
-    image: portainer/portainer
-    command: --no-auth -H unix:///var/run/docker.sock
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - 'traefik.backend=portainer'
-      - 'traefik.port=9000'
-      - 'traefik.frontend.rule=Host:portainer.cms.docker.localhost'
-
-  traefik:
-    image: traefik
-    command: -c /dev/null --web --docker --logLevel=INFO
-    ports:
-      - '8000:80'
-#      - '8080:8080' # Dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   codebase:
