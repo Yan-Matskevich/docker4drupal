@@ -4,6 +4,7 @@ services:
   mariadb:
     image: wodby/mariadb:10.2-3.0.2
 #    image: wodby/mariadb:10.1-3.0.2
+    container_name: cms_db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: drupal
@@ -13,17 +14,6 @@ services:
     - /var/www/backups:/var/www/backups
 #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 #      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
-
-#  postgres:
-#    image: wodby/postgres:10.1-1.2.0
-##    image: wodby/postgres:9.6-1.2.0
-#    environment:
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_DB: drupal
-#      POSTGRES_USER: drupal
-#    volumes:
-#      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
-#      - /path/to/postgres/data/on/host:/var/lib/postgresql/data # I want to manage volumes manually.
 
   php:
 # 1. Images with vanilla Drupal – wodby/drupal:[DRUPAL_VERSION]-[PHP_VERSION]-[STABILITY_TAG].
@@ -40,10 +30,11 @@ services:
 #    image: wodby/drupal-php:5.6-3.3.1
 #    image: wodby/drupal-php:5.3-3.3.1
 # 3. Images without Drupal – wodby/drupal-php:[PHP_VERSION]-[STABILITY_TAG]. Version for development (--enable-debug)
-    image: wodby/drupal-php:7.1-dev-3.3.1
-#    image: wodby/drupal-php:7.0-dev-3.3.1
+#    image: wodby/drupal-php:7.1-dev-3.3.1
+    image: wodby/drupal-php:7.0-dev-3.3.1
 #    image: wodby/drupal-php:5.6-dev-3.3.1
 #    image: wodby/drupal-php:5.3-dev-3.3.1
+    container_name: cms_php
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
       PHP_FPM_CLEAR_ENV: "no"
@@ -75,6 +66,7 @@ services:
 #    image: wodby/drupal-nginx:8-1.12-2.4.2
 #    image: wodby/drupal-nginx:7-1.12-2.4.2
 #    image: wodby/drupal-nginx:6-1.12-2.4.2
+    container_name: cms_nginx
     depends_on:
       - php
     environment:
@@ -127,6 +119,7 @@ services:
 
   portainer:
     image: portainer/portainer
+    container_name: cms_docker_dashbord
     command: --no-auth -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -137,6 +130,7 @@ services:
 
   traefik:
     image: traefik
+    container_name: cms_proxy
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
       - '8000:80'
@@ -146,9 +140,10 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin
+    container_name: cms_phpmyadmin
     environment:
       PMA_HOST: mariadb
-      PMA_USER: root
+      PMA_USER: rootls
       PMA_PASSWORD: password
       PHP_UPLOAD_MAX_FILESIZE: 1G
       PHP_MAX_INPUT_VARS: 1G
@@ -156,6 +151,27 @@ services:
       - 'traefik.backend=pma'
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:pma.cms.docker.localhost'
+
+  compass:
+    image: macyan/docker-compass
+    container_name: cms_compass
+    volumes:
+      - ./docroot/sites/all/themes/concerto:/data
+
+  memcached:
+    image: wodby/memcached:1.4-2.0.0
+    container_name: cms_memcached
+
+#  postgres:
+#    image: wodby/postgres:10.1-1.2.0
+##    image: wodby/postgres:9.6-1.2.0
+#    environment:
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_DB: drupal
+#      POSTGRES_USER: drupal
+#    volumes:
+#      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
+#      - /path/to/postgres/data/on/host:/var/lib/postgresql/data # I want to manage volumes manually.
 
 #  apache:
 #    image: wodby/php-apache:2.4-2.0.2
@@ -248,9 +264,6 @@ services:
 #    volumes:
 #      - ./path/to/your/single-page-app:/app
 #    command: sh -c 'npm install && npm run start'
-
-#  memcached:
-#    image: wodby/memcached:1.4-2.0.0
 
 #  rsyslog:
 #    image: wodby/rsyslog
