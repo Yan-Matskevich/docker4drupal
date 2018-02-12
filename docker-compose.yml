@@ -6,7 +6,7 @@ services:
 #    image: wodby/mariadb:10.1-3.0.2
     container_name: cms_db
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: pa55word
       MYSQL_DATABASE: drupal
       MYSQL_USER: drupal
       MYSQL_PASSWORD: drupal

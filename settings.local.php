@@ -21,6 +21,11 @@ $_ENV['AH_SITE_ENVIRONMENT'] = 'local';
 $conf['file_private_path'] = "sites/$brand_name/files/files-private";
 $conf['file_temporary_path'] = "sites/$brand_name/files/tmp";
 
+$conf['cache_backends'][] = 'profiles/publisher/modules/contrib/memcache/memcache.inc';
+$conf['cache_default_class'] = 'MemCacheDrupal';
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+$conf['memcache_key_prefix'] = $brand_name;
+
 $conf['aws_sqs_aws_key'] = '';
 $conf['aws_sqs_aws_secret'] = '';
 $conf['content_registry_api_key'] = '';
