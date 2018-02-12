@@ -25,6 +25,9 @@ $conf['cache_backends'][] = 'profiles/publisher/modules/contrib/memcache/memcach
 $conf['cache_default_class'] = 'MemCacheDrupal';
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
 $conf['memcache_key_prefix'] = $brand_name;
+$conf['memcache_servers'] = [
+  'memcache:11211' => 'default',
+];
 
 $conf['aws_sqs_aws_key'] = '';
 $conf['aws_sqs_aws_secret'] = '';
