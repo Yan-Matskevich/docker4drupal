@@ -13,11 +13,17 @@
 
 6. Put [docker-compose.yml](https://github.com/Yan-Matskevich/docker4drupal/blob/cms/docker-compose.yml) file in the cms project root.
 
-7. **(only for docker for windows client)** Run following comands to connect your shell to the docker VM machine:
+7. Put [settings.local.php](https://github.com/Yan-Matskevich/docker4drupal/blob/cms/settings.local.php) file in the **Brand** root folder (docroot/sites/<brand_name>) and fill instance settings:
+- aws_sqs_aws_key
+- aws_sqs_aws_secret
+- content_registry_api_key
+- content_registry_environment_url
+
+8. **(only for docker for windows client)** Run following comands to connect your shell to the docker VM machine:
 - **$ docker-machine env cms**
 - **$ eval "$(docker-machine env cms)"**
 
-8. Reroute cms queries to Docker VM:
+9. Reroute cms queries to Docker VM:
 - Add following records to  C:\Windows\System32\Drivers\etc\hosts with yours **docker VM IP** from step 5.:
 
 |docker VM IP   | host                              |
@@ -41,14 +47,14 @@
 |192.168.99.100 | pma.cms.docker.localhost|
 |192.168.99.100 | portainer.cms.docker.localhost|
 
-9. Go to cms root folder and run following command to download images (for the first run) and run containers **$ docker-compose up -d**.
+10. Go to cms root folder and run following command to download images (for the first run) and run containers **$ docker-compose up -d**.
 
-10. Check running container with **$ docker ps** command or go to [portainer dashbord](http://portainer.cms.docker.localhost).
+11. Check running container with **$ docker ps** command or go to [portainer dashbord](http://portainer.cms.docker.localhost).
 
-11. The last step is to install database from backup:
+12. The last step is to install database from backup:
 - Execute **$ docker exec -ti cms_db sh** command to enter the running container.
 - Go to /var/www/backups folder - **$ cd /var/www/backups**. If everything is OK, here you should find db backups and recreate.sh scrypt.
 - Run this command to install database **$ sh recreate.sh <brand_name> <backupd_name>**. Example command is **$ sh recreate.sh eonline  eonline_dump.mysql**.
 - Exit from container with **$ exit** command.
 
-12. That's all. You have installed CMS invironment. Enjoy!!!
+13. That's all. You have installed CMS invironment. Enjoy!!!
