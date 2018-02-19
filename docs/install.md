@@ -6,7 +6,7 @@
 3. Create folder for backups (ex C:\Users\<user_name>\backups) and put here (recreate.sh)[https://github.com/Yan-Matskevich/docker4drupal/blob/cms/recreate.sh]. If you changed backups folder name you would have to change mapping for backups in docker-compose.yml too.
 
 4. Start you docker VM:
-- Run 'Docker Quickstart Terminal' to start oracle virtualbox with default boot2docker image.
+- Run 'Docker Quickstart Terminal' (as Administrator) to start oracle virtualbox with default boot2docker image.
 - Run **$ docker-machine create --driver hyperv cms**/**$ docker-machine start cms** to **create new/start existing** local machines with virtualbox driver.
 
 5. Check list available machines with **docker-machine ls** comand and pay attantion on **URL** column, there is docker VM IP. We will need it later.
@@ -46,7 +46,7 @@
 10. Check running container with **$ docker ps** command or go to [portainer dashbord](http://portainer.cms.docker.localhost).
 
 11. The last step is to install database from backup:
-- Execute ** $ docker exec -ti cms_db sh** command to enter the running container.
+- Execute **$ docker exec -ti cms_db sh** command to enter the running container.
 - Go to /var/www/backups folder - **$ cd /var/www/backups**. If everything is OK, here you should find db backups and recreate.sh scrypt.
 - Run this command to install database **$ sh recreate.sh <brand_name> <backupd_name>**. Example command is **$ sh recreate.sh eonline  eonline_dump.mysql**.
 - Exit from container with **$ exit** command.
