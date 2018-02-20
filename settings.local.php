@@ -37,7 +37,7 @@ $conf['content_registry_environment_url'] = '';
 $databases['default'] = [
   'default' =>
     [
-      'database' => 'eonline',
+      'database' => $brand_name,
       'username' => 'root',
       'password' => 'password',
       'host' => 'mariadb',
