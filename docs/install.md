@@ -6,7 +6,7 @@
 3. Create folder for backups (ex C:\Users\<user_name>\backups) and put here (recreate.sh)[https://github.com/Yan-Matskevich/docker4drupal/blob/cms/recreate.sh]. If you changed backups folder name you would have to change mapping for backups in docker-compose.yml too.
 
 4. Start you docker VM:
-- Run 'Docker Quickstart Terminal' (as Administrator) to start oracle virtualbox with default boot2docker image.
+- Run 'Docker Quickstart Terminal' (as Administrator) to start oracle virtualbox with default boot2docker image. If you use **Docker Quickstart Terminal** tool, run following commands after starting. **docker-machine rm default** - kill default VM. **docker-machine create -d virtualbox --virtualbox-cpu-count=2 --virtualbox-memory=4096 default** - create more powerful new one. **docker-machine stop** , **exit** - restart docker.
 - Run **$ docker-machine create --driver hyperv cms**/**$ docker-machine start cms** to **create new/start existing** local machines with virtualbox driver.
 
 5. Check list available machines with **docker-machine ls** comand and pay attantion on **URL** column, there is docker VM IP. We will need it later.
@@ -57,4 +57,4 @@
 - Run this command to install database **$ sh recreate.sh <brand_name> <backupd_name>**. Example command is **$ sh recreate.sh eonline  eonline_dump.mysql**.
 - Exit from container with **$ exit** command.
 
-13. That's all. You have installed CMS invironment. Enjoy!!!
+13. That's all. You have installed CMS environment. Enjoy!!!
