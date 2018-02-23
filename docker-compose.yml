@@ -4,7 +4,7 @@ services:
   mariadb:
     image: wodby/mariadb:10.2-3.0.2
 #    image: wodby/mariadb:10.1-3.0.2
-    container_name: cms_db
+    container_name: tve_db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: drupal
@@ -34,7 +34,7 @@ services:
     image: wodby/drupal-php:7.0-dev-3.3.1
 #    image: wodby/drupal-php:5.6-dev-3.3.1
 #    image: wodby/drupal-php:5.3-dev-3.3.1
-    container_name: cms_php
+    container_name: tve_php
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
       PHP_FPM_CLEAR_ENV: "no"
@@ -69,7 +69,7 @@ services:
 #    image: wodby/drupal-nginx:8-1.12-2.4.2
 #    image: wodby/drupal-nginx:7-1.12-2.4.2
 #    image: wodby/drupal-nginx:6-1.12-2.4.2
-    container_name: cms_nginx
+    container_name: tve_nginx
     depends_on:
       - php
     environment:
@@ -78,22 +78,21 @@ services:
       NGINX_BACKEND_HOST: php
       NGINX_SERVER_ROOT: /var/www/html/docroot
       NGINX_SERVER_NAME:
-        local.tvecms.usanetwork.nbcuni.com
-        local.tvecms.usa.nbcuni.com
-        local.tvecms.bravo.nbcuni.com
-        local.tvecms.chiller.nbcuni.com
-        local.tvecms.cxbrand.nbcuni.com
-        local.tvecms.eonline.nbcuni.com
-        local.tvecms.seeso.nbcuni.com
-        local.tvecms.sprout.nbcuni.com
-        local.tvecms.syfy.nbcuni.com
-        local.tvecms.telemundo.nbcuni.com
-        local.tvecms.oxygen.nbcuni.com
-        local.tvecms.nbcuniverso.nbcuni.com
-        local.tvecms.cnbc.nbcuni.com
-        local.tvecms.msnbc.nbcuni.com
-        local.tvecms.esquire.nbcuni.com
-        local.tvecms.universalkids.nbcuni.com
+        local.tve.telemundo.nbcuni.com
+        local.tve.bravo.nbcuni.com
+        local.tve.syfy.nbcuni.com
+        local.tve.eonline.nbcuni.com
+        local.tve.sprout.nbcuni.com
+        local.tve.cnbc.nbcuni.com
+        local.tve.mun2.nbcuni.com
+        local.tve.esquire.nbcuni.com
+        local.tve.oxygen.nbcuni.com
+        local.tve.usa.nbcuni.com
+        local.tve.nbcsports.nbcuni.com
+        local.tve.nbcnews.nbcuni.com
+        local.tve.nbcuniverso.nbcuni.com
+        local.tve.msnbc.nbcuni.com
+        local.tve.nbcd.nbcuni.com
     volumes:
       - ./:/var/www/html
 # Options for macOS users (https://docker4drupal.readthedocs.io/en/latest/macos)
@@ -103,37 +102,36 @@ services:
       - 'traefik.backend=nginx'
       - 'traefik.port=80'
       - 'traefik.frontend.rule=Host:
-          local.tvecms.usanetwork.nbcuni.com,
-          local.tvecms.usa.nbcuni.com,
-          local.tvecms.bravo.nbcuni.com,
-          local.tvecms.chiller.nbcuni.com,
-          local.tvecms.cxbrand.nbcuni.com,
-          local.tvecms.eonline.nbcuni.com,
-          local.tvecms.seeso.nbcuni.com,
-          local.tvecms.sprout.nbcuni.com,
-          local.tvecms.syfy.nbcuni.com,
-          local.tvecms.telemundo.nbcuni.com,
-          local.tvecms.oxygen.nbcuni.com,
-          local.tvecms.nbcuniverso.nbcuni.com,
-          local.tvecms.cnbc.nbcuni.com,
-          local.tvecms.msnbc.nbcuni.com,
-          local.tvecms.esquire.nbcuni.com,
-          local.tvecms.universalkids.nbcuni.com'
+          local.tve.telemundo.nbcuni.com,
+          local.tve.bravo.nbcuni.com,
+          local.tve.syfy.nbcuni.com,
+          local.tve.eonline.nbcuni.com,
+          local.tve.sprout.nbcuni.com,
+          local.tve.cnbc.nbcuni.com,
+          local.tve.mun2.nbcuni.com,
+          local.tve.esquire.nbcuni.com,
+          local.tve.oxygen.nbcuni.com,
+          local.tve.usa.nbcuni.com,
+          local.tve.nbcsports.nbcuni.com,
+          local.tve.nbcnews.nbcuni.com,
+          local.tve.nbcuniverso.nbcuni.com,
+          local.tve.msnbc.nbcuni.com,
+          local.tve.nbcd.nbcuni.com'
 
   portainer:
     image: portainer/portainer
-    container_name: cms_docker_dashbord
+    container_name: tve_docker_dashbord
     command: --no-auth -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - 'traefik.backend=portainer'
       - 'traefik.port=9000'
-      - 'traefik.frontend.rule=Host:portainer.cms.docker.localhost'
+      - 'traefik.frontend.rule=Host:portainer.tve.docker.localhost'
 
   traefik:
     image: traefik
-    container_name: cms_proxy
+    container_name: tve_proxy
     command: -c /dev/null --web --docker --logLevel=INFO
     ports:
       - '8000:80'
@@ -143,7 +141,7 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin
-    container_name: cms_phpmyadmin
+    container_name: tve_phpmyadmin
     environment:
       PMA_HOST: mariadb
       PMA_USER: root
@@ -153,19 +151,19 @@ services:
     labels:
       - 'traefik.backend=pma'
       - 'traefik.port=80'
-      - 'traefik.frontend.rule=Host:pma.cms.docker.localhost'
+      - 'traefik.frontend.rule=Host:pma.tve.docker.localhost'
 
-  compass:
-    image: macyan/docker-compass
-    container_name: cms_compass
-    volumes:
-      - ./docroot/sites/all/themes/concerto:/data
+#  compass:
+#    image: macyan/docker-compass
+#    container_name: tve_compass
+#    volumes:
+#      - ./docroot/sites/all/themes/concerto:/data
 
-  memcache:
-    image: devdb/memcache
-    container_name: cms_memcache
-    environment:
-      MAX_MEM: 128
+#  memcache:
+#    image: devdb/memcache
+#    container_name: cms_memcache
+#    environment:
+#      MAX_MEM: 128
 
 #  postgres:
 #    image: wodby/postgres:10.1-1.2.0
@@ -222,21 +220,22 @@ services:
 #      - 'traefik.port=9000'
 #      - 'traefik.frontend.rule=Host:adminer.drupal.docker.localhost'
 
-#  solr:
-## wodby/drupal-solr:[DRUPAL_VERSION]-[SOLR_VERSION]-[STABILITY_TAG].
+  solr:
+# wodby/drupal-solr:[DRUPAL_VERSION]-[SOLR_VERSION]-[STABILITY_TAG].
 #    image: wodby/drupal-solr:8-6.6-2.3.0
-##    image: wodby/drupal-solr:8-6.5-2.3.0
-##    image: wodby/drupal-solr:8-6.4-2.3.0
-##    image: wodby/drupal-solr:8-6.3-2.3.0
-##    image: wodby/drupal-solr:8-5.5-2.3.0
-##    image: wodby/drupal-solr:8-7.0-2.3.0
-##    image: wodby/drupal-solr:8-7.1-2.3.0
-##    image: wodby/drupal-solr:7-5.4-2.3.0
-#    environment:
-#      SOLR_HEAP: 1024m
-#   maria#      - 'traefik.backend=solr'
-#      - 'traefik.port=8983'
-#      - 'traefik.frontend.rule=Host:solr.drupal.docker.localhost'
+#    image: wodby/drupal-solr:8-6.5-2.3.0
+#    image: wodby/drupal-solr:8-6.4-2.3.0
+#    image: wodby/drupal-solr:8-6.3-2.3.0
+#    image: wodby/drupal-solr:8-5.5-2.3.0
+#    image: wodby/drupal-solr:8-7.0-2.3.0
+#    image: wodby/drupal-solr:8-7.1-2.3.0
+    image: wodby/drupal-solr:7-5.4-2.3.0
+    environment:
+      SOLR_HEAP: 1024m
+    labels:
+      - 'traefik.backend=solr'
+      - 'traefik.port=8983'
+      - 'traefik.frontend.rule=Host:solr.tve.docker.localhost'
 
 #  mailhog:
 #    image: mailhog/mailhog
