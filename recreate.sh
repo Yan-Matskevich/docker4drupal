@@ -21,7 +21,7 @@ T=`date +%s`
 echo $Y"Summary time, [$(((`date +%s`-$T)))] sec"$N
 
 #pv $DB_BASE | mysql --user=$DB_USERNAME --password=$DB_PASSWORD $DB_NAME
-mysql --user=$DB_USERNAME --password=$DB_PASSWORD $DB_NAME
+mysql --user=$DB_USERNAME --password=$DB_PASSWORD $DB_NAME < $DB_BASE
 
 #cd ../docroot/sites/$SITE_FOLDER
 #drush db update
