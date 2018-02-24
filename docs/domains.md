@@ -6,24 +6,24 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 
 | Service      | Domain                                                                                                |
 | ------------ | ------------------------------------------------------------------------------------------------------|
-| usanetwork   | [http://local.tvecms.usanetwork.nbcuni.com:8000](http://local.tvecms.usanetwork.nbcuni.com:8000)      |
-| nbcuni       | [http://local.tvecms.usa.nbcuni.com:8000](http://local.tvecms.usa.nbcuni.com:8000)                    |
-| bravo        | [http://local.tvecms.bravo.nbcuni.com:8000](http://local.tvecms.bravo.nbcuni.com:8000)                |
-| chiller      | [http://local.tvecms.chiller.nbcuni.com:8000](http://local.tvecms.chiller.nbcuni.com:8000)            |
-| cxbrand      | [http://local.tvecms.cxbrand.nbcuni.com:8000](http://local.tvecms.cxbrand.nbcuni.com:8000)            |
-| eonline      | [http://local.tvecms.eonline.nbcuni.com:8000](http://local.tvecms.eonline.nbcuni.com:8000)            |
-| seeso        | [http://local.tvecms.seeso.nbcuni.com:8000](http://local.tvecms.seeso.nbcuni.com:8000)                |
-| sprout       | [http://local.tvecms.sprout.nbcuni.com:8000](http://local.tvecms.sprout.nbcuni.com:8000)              |
-| syfy         | [http://local.tvecms.syfy.nbcuni.com:8000](http://local.tvecms.syfy.nbcuni.com:8000)                  |
-| telemundo    | [http://local.tvecms.telemundo.nbcuni.com:8000](http://local.tvecms.telemundo.nbcuni.com:8000)        |
+| telemundo    | [http://local.tve.telemundo.nbcuni.com:8000](http://local.tve.telemundo.nbcuni.com:8000)              |
+| bravo        | [http://local.tve.bravo.nbcuni.com:8000](http://local.tve.bravo.nbcuni.com:8000)                      |
+| syfy         | [http://local.tve.syfy.nbcuni.com:8000](http://local.tve.syfy.nbcuni.com:8000)                        |
+| eonline      | [http://local.tve.eonline.nbcuni.com:8000](http://local.tve.eonline.nbcuni.com:8000)                  |
+| sprout       | [http://local.tve.sprout.nbcuni.com:8000](http://local.tve.sprout.nbcuni.com:8000)                    |
+| cnbc         | [http://local.tve.cnbc.nbcuni.com:8000](http://local.tve.cnbc.nbcuni.com:8000)                        |
+| mun2         | [http://local.tve.mun2.nbcuni.com:8000](http://local.tve.mun2.nbcuni.com:8000)                        |
+| esquire      | [http://local.tve.esquire.nbcuni.com:8000](http://local.tve.esquire.nbcuni.com:8000)                  |
+| oxygen       | [http://local.tve.oxygen.nbcuni.com:8000](http://local.tve.oxygen.nbcuni.com:8000)                    |
+| usa          | [http://local.tve.usa.nbcuni.com:8000](http://local.tve.usa.nbcuni.com:8000)                          |
 | oxygen       | [http://local.tvecms.oxygen.nbcuni.com:8000](http://local.tvecms.oxygen.nbcuni.com:8000)              |
-| nbcuniverso  | [http://local.tvecms.nbcuniverso.nbcuni.com:8000](http://local.tvecms.nbcuniverso.nbcuni.com:8000)    |
-| cnbc         | [http://local.tvecms.cnbc.nbcuni.com:8000](http://local.tvecms.cnbc.nbcuni.com:8000)                  |
-| msnbc        | [http://local.tvecms.msnbc.nbcuni.com:8000](http://local.tvecms.msnbc.nbcuni.com:8000)                |
-| esquire      | [http://local.tvecms.esquire.nbcuni.com:8000](http://local.tvecms.esquire.nbcuni.com:8000)            |
-| universalkids| [http://local.tvecms.universalkids.nbcuni.com:8000](http://local.tvecms.universalkids.nbcuni.com:8000)|
-| pma          | [http://pma.cms.docker.localhost:8000](http://pma.cms.docker.localhost:8000)                          |
-| portainer    | [http://portainer.cms.docker.localhost:8000](http://portainer.cms.docker.localhost:8000)              |
+| nbcsports    | [http://local.tve.nbcsports.nbcuni.com:8000](http://local.tve.nbcsports.nbcuni.com:8000)              |
+| nbcuni       | [http://local.tve.nbcnews.nbcuni.com:8000](http://local.tve.nbcnews.nbcuni.com:8000)                  |
+| nbcuniverso  | [http://local.tve.nbcuniverso.nbcuni.com:8000](http://local.tve.nbcuniverso.nbcuni.com:8000)          |
+| msnbc        | [http://local.tve.msnbc.nbcuni.com:8000](http://local.tve.msnbc.nbcuni.com:8000)                      |
+| nbcd         | [http://local.tve.nbcd.nbcuni.com:8000](http://local.tve.nbcd.nbcuni.com:8000)                        |
+| pma          | [http://pma.tve.docker.localhost:8000](http://pma.tve.docker.localhost:8000)                          |
+| portainer    | [http://portainer.tve.docker.localhost:8000](http://portainer.tve.docker.localhost:8000)              |
 |--------------|-------------------------------------------------------------------------------------------------------|
 | mailhog      | [http://mailhog.drupal.docker.localhost:8000](http://mailhog.drupal.docker.localhost:8000)            |
 | solr         | [http://solr.drupal.docker.localhost:8000](http://solr.drupal.docker.localhost:8000)                  |

@@ -11,7 +11,7 @@ services:
       MYSQL_USER: drupal
       MYSQL_PASSWORD: drupal
     volumes:
-    - ~/backups:/var/www/backups
+    - ~/projects/backups:/var/www/backups
 #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 #      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
 
@@ -45,10 +45,10 @@ services:
       DB_DRIVER: mysql
       PHP_XDEBUG: 1
       PHP_XDEBUG_DEFAULT_ENABLE: 1
-#      PHP_XDEBUG_PROFILER_ENABLE: 0
-#      PHP_XDEBUG_PROFILER_ENABLE_TRIGGER: 1
-#      PHP_XDEBUG_REMOTE_CONNECT_BACK: 0
-#      PHP_XDEBUG_REMOTE_HOST: "10.254.254.254"
+      PHP_XDEBUG_PROFILER_ENABLE: 0
+      PHP_XDEBUG_PROFILER_ENABLE_TRIGGER: 1
+      PHP_XDEBUG_REMOTE_CONNECT_BACK: 0
+      PHP_XDEBUG_REMOTE_HOST: "10.6.186.37"
 #      PHP_XDEBUG_PROFILER_OUTPUT_DIR: /mnt/files/xdebug/profiler
 #      PHP_XDEBUG_TRACE_OUTPUT_DIR: /mnt/files/xdebug/traces
 #      PHP_BLACKFIRE: 1
@@ -220,22 +220,22 @@ services:
 #      - 'traefik.port=9000'
 #      - 'traefik.frontend.rule=Host:adminer.drupal.docker.localhost'
 
-  solr:
-# wodby/drupal-solr:[DRUPAL_VERSION]-[SOLR_VERSION]-[STABILITY_TAG].
-#    image: wodby/drupal-solr:8-6.6-2.3.0
-#    image: wodby/drupal-solr:8-6.5-2.3.0
-#    image: wodby/drupal-solr:8-6.4-2.3.0
-#    image: wodby/drupal-solr:8-6.3-2.3.0
-#    image: wodby/drupal-solr:8-5.5-2.3.0
-#    image: wodby/drupal-solr:8-7.0-2.3.0
-#    image: wodby/drupal-solr:8-7.1-2.3.0
-    image: wodby/drupal-solr:7-5.4-2.3.0
-    environment:
-      SOLR_HEAP: 1024m
-    labels:
-      - 'traefik.backend=solr'
-      - 'traefik.port=8983'
-      - 'traefik.frontend.rule=Host:solr.tve.docker.localhost'
+#  solr:
+## wodby/drupal-solr:[DRUPAL_VERSION]-[SOLR_VERSION]-[STABILITY_TAG].
+##    image: wodby/drupal-solr:8-6.6-2.3.0
+##    image: wodby/drupal-solr:8-6.5-2.3.0
+##    image: wodby/drupal-solr:8-6.4-2.3.0
+##    image: wodby/drupal-solr:8-6.3-2.3.0
+##    image: wodby/drupal-solr:8-5.5-2.3.0
+##    image: wodby/drupal-solr:8-7.0-2.3.0
+##    image: wodby/drupal-solr:8-7.1-2.3.0
+#    image: wodby/drupal-solr:7-5.4-2.3.0
+#    environment:
+#      SOLR_HEAP: 1024m
+#    labels:
+#      - 'traefik.backend=solr'
+#      - 'traefik.port=8983'
+#      - 'traefik.frontend.rule=Host:solr.tve.docker.localhost'
 
 #  mailhog:
 #    image: mailhog/mailhog
